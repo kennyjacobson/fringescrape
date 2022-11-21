@@ -17,10 +17,12 @@ class Fringescrape:
         self._check_dir()
 
     def _get_location_params(self):
+        if self.location == 'scablands':
+            return 1, 1509
         if self.location == 'void':
-            return 1510, 2508
+            return 1510, 3507
         if self.location == 'haze':
-            return 2509, 4000
+            return 3508, 6000
 
     def _check_dir(self):
         if not os.path.exists(self.json_dir):
@@ -95,7 +97,7 @@ class Fringescrape:
                     drifter = json.load(obj)
                     name = drifter.get('name')
                     id = name[9:]
-                    print(id)
+                    #print(id)
                     row = id
                     attributes = drifter.get('attributes')
                     #print(attributes)
