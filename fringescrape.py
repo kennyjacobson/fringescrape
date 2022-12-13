@@ -23,6 +23,8 @@ class Fringescrape:
             return 1510, 3507
         if self.location == 'haze':
             return 3508, 6000
+        if self.location == 'void_back':
+            return 3486, 3508
 
     def _check_dir(self):
         if not os.path.exists(self.json_dir):
@@ -81,7 +83,8 @@ class Fringescrape:
                     if attributes:
                         for attribute in attributes:
                             traits.append(attribute.get('trait_type'))
-        return [*set(traits)]
+        traits.append("Death")
+        return sorted([*set(traits)])
 
     def _get_all_attributes(self, traits):
         csv = []
@@ -127,3 +130,22 @@ class Fringescrape:
         with open(cvs_path,'a') as f:
             for line in csv:
                 f.write(line)
+
+    def write_combine_void(self, new_file, files):
+        combined_contents = ''
+        is_first = True
+        for file in files:
+            with open(file) as f:
+                contents = f.read()
+                if is_first:
+                    is_first = False
+                else:
+                    #remove the first line
+                    contents = contents[contents.find("\n")+1:]
+                    pass
+                combined_contents +=  contents
+        with open(new_file, "w") as f:
+            f.write("")
+        with open(new_file,'a') as f:
+            f.write(combined_contents)
+
